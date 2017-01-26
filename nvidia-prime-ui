@@ -11,10 +11,8 @@ prime_msg_02="Default is currently set to $j%s$end."
 prime_msg_03=""
 menu_prime_01="Set Prime to Intel device"
 menu_prime_02="Set Prime to Nvidia device"
-menu_prime_03="Set permanently Prime to Nvidia device"
 m_prime_01="intel"
 m_prime_02="nvidia"
-m_prime_03="permanent nvidia"
 wrn_prime_01="Prime will be set to $j%s$end."
 wrn_prime_02="\nYou may now restart the user session to take effect."
 
@@ -32,7 +30,6 @@ unset setup_list setup_option _pset
 setup_option=(
 "$menu_prime_01;$m_prime_01;intel;/etc/X11/xinit/xinitrc.d/intel"
 "$menu_prime_02;$m_prime_02;nvidia;/etc/X11/xinit/xinitrc.d/nvidia"
-"$menu_prime_03;$m_prime_03;nvidia;/etc/rc.d/rc.nvidia"
 )
 n=1
 for p_set in "${setup_option[@]}"; do
@@ -62,7 +59,6 @@ if [ $? = 1 ]; then exit 0; fi
 case $menu_prime in
 	"1") _pset=( "intel"); _prime="$m_prime_01" ;;
 	"2") _pset=( "nvidia" ); _prime="$m_prime_02" ;;
-	"3") _pset=( "nvidia" "nvidiaonly" ); _prime="$m_prime_03" ;;
 esac
 setup_prime
 
