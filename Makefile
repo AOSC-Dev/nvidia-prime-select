@@ -22,6 +22,7 @@ install:
 	install -Dm644 data/nvidia-prime-ui.desktop $(DATADIR)/applications/nvidia-prime-ui.desktop
 	install -Dm644 data/nvidia-prime.service $(UNITDIR)/nvidia-prime.service
 	install -Dm644 data/com.github.pkexec.nvidia-prime-ui.policy $(DATADIR)/polkit-1/actions/com.github.pkexec.nvidia-prime-ui.policy
+
 uninstall:
 	systemctl disable nvidia-prime.service
 	rm -rf $(PRIMECONFDIR)
