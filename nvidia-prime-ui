@@ -17,16 +17,6 @@ m_prime_02="nvidia"
 m_prime_03="permanent nvidia"
 wrn_prime_01="Prime will be set to $j%s$end."
 wrn_prime_02="\nYou may now restart the user session to take effect."
-# su cmd switcher: su (0), sudo (1)
-su_type=0
-
-if [ $su_type = 0 ]; then su_cmd='su -c'; else 'sudo -S'; fi
-root_id(){
-	if [[ $EUID -gt 0 ]] ; then
-		zenity --password --title="Zenvidia (admin password)" | $su_cmd $0
-		exit 0
-	fi
-}
 
 setup_prime(){
 	zenity --height=100 --title="Zenvidia prime setup" --question --no-wrap \
@@ -34,10 +24,10 @@ setup_prime(){
 	--cancel-label='Cancel' --ok-label='Setup'
 	if [ $? = 1 ]; then $0; fi
 	for pset in "${_pset[@]}"; do
-		/usr/sbin/nvidia-prime-select $pset
-	done	
+		pkexec /usr/bin/nvidia-prime-select $pset
+	done
 }
-root_id
+
 unset setup_list setup_option _pset
 setup_option=(
 "$menu_prime_01;$m_prime_01;intel;/etc/X11/xinit/xinitrc.d/intel"
