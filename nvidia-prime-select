@@ -52,7 +52,7 @@ current_display=$(xrandr --current| grep "connected"| grep "[0-9]\{3,4\}[x]"| se
 connected_display=$(xrandr --current| grep -w "connected"| awk '{print $1}')
 xrandr_outputs(){
 	unset scrn
-	unset def 
+	unset def
 	if [[ $conf == nvidia ]]; then
 		xrandr_source='NVIDIA-0'
 		xrandr_sink='modesetting'
@@ -64,7 +64,7 @@ xrandr_outputs(){
 		printf "xrandr --setprovideroutputsource $xrandr_sink $xrandr_source\n" > $install_dir/xinitrc.$conf
 		printf "xrandr" >> $install_dir/xinitrc.$conf
 	else
-		printf "xrandr" > $install_dir/xinitrc.$conf	
+		printf "xrandr" > $install_dir/xinitrc.$conf
 	fi
 	for all_dsp in ${connected_display[@]}; do
 		output_class=$(printf "$all_dsp"|sed -n "s/[[:digit:]]\|[[:punct:]]//g;p")
@@ -90,7 +90,7 @@ xrandr_outputs(){
 				if [[ ${mode[3]} ]]; then prim="--${mode[3]}"; else prim=''; fi
 				printf " --output $connected_output --mode ${def[0]}x${def[1]} --pos ${def[2]}x${def[3]} $prim" >> $install_dir/xinitrc.$conf
 			done
-			
+
 		else
 			printf " --output $connected_output --off" >> $install_dir/xinitrc.$conf
 		fi
@@ -149,7 +149,7 @@ case $1 in
 			fi
 			if [ -s $rc_dir/rc.local ]; then
 				if [ $(cat $rc_dir/rc.local| grep -c "rc.nvidia") -eq 0 ]; then
-					perl -ni -pe "s|exit 0|$bash_line|i" $rc_dir/rc.local 
+					perl -ni -pe "s|exit 0|$bash_line|i" $rc_dir/rc.local
 				fi
 				chmod 755 $rc_dir/rc.local
 			else
@@ -190,4 +190,4 @@ if [ -f /etc/X11/xinit/xinitrc.d/$keyword ]; then
 else
 	printf "\nSwitch to %s doesn't ended as expected\n" "$1"
 	printf "Please, run script again or check custom values.\n"
-fi	
+fi
